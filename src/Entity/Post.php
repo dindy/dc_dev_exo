@@ -89,12 +89,12 @@ class Post
         return $this;
     }
 
-    public function getComments(): ?Category
+    public function getComments()
     {
         return $this->comments;
     }
 
-    public function setComments(?Category $comments): self
+    public function setComments($comments): self
     {
         $this->comments = $comments;
 

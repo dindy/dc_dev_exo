@@ -56,9 +56,12 @@ class BlogController extends AbstractController
             ->getRepository(Category::class)
             ->find($id);            
 
+        // $posts = $category->getPosts();
+
         return $this->render('show_category.html.twig', [
             'categories' => $categories,
-            'category' => $category
+            'category' => $category,
+            // 'posts' => $posts
         ]); 
     }
 } 
