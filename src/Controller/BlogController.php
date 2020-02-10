@@ -47,7 +47,18 @@ class BlogController extends AbstractController
     }
 
     public function show_category($id)
-    {
-        # code...
+    {   
+        $categories = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->findAll();
+
+        $category = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->find($id);            
+
+        return $this->render('show_category.html.twig', [
+            'categories' => $categories,
+            'category' => $category
+        ]); 
     }
 } 

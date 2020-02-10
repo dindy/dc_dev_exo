@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de la catégorie{% endblock %}
+
+{% block body %}
+    
+    {% set posts_count = category.posts|length %}
+
+    <h1>{{ category.name }} ({{ category.posts|length }} {{ posts_count > 1 ? 'catégories' : 'catégorie' }})</h1>
+
+    <ul>
+        {% for post in category.posts %}
+        <li>
+            <a href="{{ path('blog_show', { id: post.id }) }}">
+                {{ post.title }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
