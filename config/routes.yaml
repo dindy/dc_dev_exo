@@ -3,5 +3,9 @@ blog_list:
     controller: App\Controller\BlogController::list
 
 blog_show:
-    path: /blog/show/{id}
+    path: /blog/posts/{id}
     controller: App\Controller\BlogController::show
+
+blog_category_show:
+    path: /blog/categories/{id}
+    controller: App\Controller\BlogController::show_category
