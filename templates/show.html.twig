@@ -4,6 +4,6 @@
 
 {% block body %}
 <h1>{{ post.title }}</h1>
-<i>Publié le {{ post.created | date("d/m/Y") }}</i>
+<i>Publié le {{ post.created | date("d/m/Y") }} dans {{post.category.name}}</i>
 <p>{{ post.content }}</p>
 {% endblock %}
