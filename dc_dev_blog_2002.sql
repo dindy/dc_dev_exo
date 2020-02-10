@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 10 fév. 2020 à 08:33
+-- Généré le :  lun. 10 fév. 2020 à 09:12
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -49,26 +49,6 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `post_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `migration_versions`
---
-
-DROP TABLE IF EXISTS `migration_versions`;
-CREATE TABLE IF NOT EXISTS `migration_versions` (
-  `version` varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `executed_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-  PRIMARY KEY (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `migration_versions`
---
-
-INSERT INTO `migration_versions` (`version`, `executed_at`) VALUES
-('20200210082335', '2020-02-10 08:24:11');
 
 -- --------------------------------------------------------
 
