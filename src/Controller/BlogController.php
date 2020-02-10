@@ -36,7 +36,14 @@ class BlogController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        return $this->render('show.html.twig', ['post' => $post]);
+        $categories = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->findAll();
+
+        return $this->render('show.html.twig', [
+            'post' => $post,
+            'categories' => $categories,
+        ]);
     }
 
     public function show_category($id)
