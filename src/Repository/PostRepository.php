@@ -19,6 +19,15 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    public function getMonthsWithPosts()
+    {
+        $conn = $this->getEntityManager()->getConnection();        
+        $sql = "SELECT DISTINCT MONTH(created) AS month, YEAR(created) AS year FROM post";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();        
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Post[] Returns an array of Post objects
     //  */

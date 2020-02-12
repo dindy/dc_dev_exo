@@ -1,0 +1,6 @@
+Menu par mois
+<ul>
+    {% for month in months %}
+        <li>{{ date('2012-' ~ month.month ~ '-01')|date('M') }} {{ month.year }}</li>
+    {% endfor %}
+</ul>

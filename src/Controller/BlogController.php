@@ -36,13 +36,13 @@ class BlogController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        $categories = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findAll();
+        $months = $this->getDoctrine()
+            ->getRepository(Post::class)
+            ->getMonthsWithPosts();
 
         return $this->render('show.html.twig', [
             'post' => $post,
-            'categories' => $categories,
+            'months' => $months,
         ]);
     }
 
