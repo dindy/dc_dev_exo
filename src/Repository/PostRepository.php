@@ -21,39 +21,17 @@ class PostRepository extends ServiceEntityRepository
 
     public function getMonthsWithPosts()
     {
-        $conn = $this->getEntityManager()->getConnection();        
-        $sql = "SELECT DISTINCT MONTH(created) AS month, YEAR(created) AS year FROM post";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();        
-        return $stmt->fetchAll();
-    }
-
-    // /**
-    //  * @return Post[] Returns an array of Post objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        return $this
+            ->createQueryBuilder('p')
+            ->distinct()
+            ->select('MONTH(p.created) AS month, YEAR(p.created) AS year')     
             ->getQuery()
             ->getResult()
         ;
+        // $conn = $this->getEntityManager()->getConnection();        
+        // $sql = "SELECT DISTINCT MONTH(created) AS month, YEAR(created) AS year FROM post";
+        // $stmt = $conn->prepare($sql);
+        // $stmt->execute();        
+        // return $stmt->fetchAll();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Post
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
