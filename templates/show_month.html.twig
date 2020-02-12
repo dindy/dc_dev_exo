@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block menu %}
+    {% include 'months_menu.html.twig' %}
+{% endblock %}
+
+{% block body %}
+<h1>Articles pour {{ date('2012-' ~ month ~ '-01')|date('M') }} {{ year }}</h1> 
+<ul>
+    {% for post in posts %}
+        <li>{{ post.title }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

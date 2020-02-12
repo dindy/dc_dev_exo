@@ -6,6 +6,7 @@ use App\Entity\Post;
 use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class BlogController extends AbstractController
 {
@@ -63,5 +64,26 @@ class BlogController extends AbstractController
             'category' => $category,
             // 'posts' => $posts
         ]); 
+    }
+
+    public function show_month(Request $request)
+    {
+        $year = $request->query->get('year');
+        $month = $request->query->get('month');
+        
+        $posts = $this->getDoctrine()
+            ->getRepository(Post::class)
+            ->getPostsForMonth($year, $month);
+
+        $months = $this->getDoctrine()
+            ->getRepository(Post::class)
+            ->getMonthsWithPosts();
+
+        return $this->render('show_month.html.twig', [
+            'posts' => $posts,
+            'months' => $months,
+            'month' => $month,
+            'year' => $year,
+        ]);
     }
 } 

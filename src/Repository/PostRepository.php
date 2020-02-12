@@ -34,4 +34,19 @@ class PostRepository extends ServiceEntityRepository
         // $stmt->execute();        
         // return $stmt->fetchAll();
     }
+
+    public function getPostsForMonth($year, $month)
+    {
+        return $this
+            ->createQueryBuilder('p')
+            ->select('p.id, p.title')
+            ->where('MONTH(p.created) = :month AND YEAR(p.created) = :year')
+            ->setParameters([
+                'month' => $month,
+                'year' => $year,
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
