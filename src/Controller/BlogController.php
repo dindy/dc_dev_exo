@@ -4,9 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\Category;
+use App\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BlogController extends AbstractController
 {
@@ -26,7 +30,7 @@ class BlogController extends AbstractController
         ]);
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         $post = $this->getDoctrine()
             ->getRepository(Post::class)
@@ -37,6 +41,32 @@ class BlogController extends AbstractController
             throw $this->createNotFoundException();
         }
 
+        $comment = new Comment();
+
+        $form = $this->createFormBuilder($comment)
+            ->add('pseudo', TextType::class, ['attr' => ['class' => 'pseudo']])
+            ->add('content', TextareaType::class)
+            ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
+            ->getForm();
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $comment = $form->getData();
+            
+            $comment->setPost($post);
+
+            $entityManager = $this
+                ->getDoctrine()
+                ->getManager();
+
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('blog_show', ['id' => $id]);
+        }
+
         $months = $this->getDoctrine()
             ->getRepository(Post::class)
             ->getMonthsWithPosts();
@@ -44,6 +74,7 @@ class BlogController extends AbstractController
         return $this->render('show.html.twig', [
             'post' => $post,
             'months' => $months,
+            'form' => $form->createView()
         ]);
     }
 
